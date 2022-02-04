@@ -1,0 +1,20 @@
+module.exports = [
+    {
+        name: 'Ann',
+        email: 'ann@gmail.com',
+        exclude: ['bob@gmail.com'],
+        giftTo: null
+    },
+    {
+        name: 'Bob',
+        email: 'bob@gmail.com',
+        exclude: [],
+        giftTo: null,
+    },
+    {
+        name: 'Carl',
+        email: 'carl@gmail.com',
+        exclude: [],
+        giftTo: null
+    },
+]
