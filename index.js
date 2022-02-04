@@ -13,12 +13,10 @@ function checkAssymetric(result, target) {
   return existing.giftTo !== target;
 }
 
-async function choose(data) {
-  const people = await Promise.all(
-    data.map(function (person) {
-      return { name: person.name, email: person.email };
-    })
-  );
+function choose(data) {
+  const people = data.map(({ name, email }) => {
+    return { name, email };
+  });
 
   const result = [];
   while (people.length > 0) {
@@ -39,8 +37,8 @@ async function choose(data) {
   return result;
 }
 
-async function runSecretSanta() {
-  const result = await choose(data);
+function runSecretSanta() {
+  const result = choose(data);
 
   console.log(result); //comment this
   // try{
