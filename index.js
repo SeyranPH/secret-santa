@@ -19,6 +19,7 @@ function choose(data) {
   });
 
   const result = [];
+  let count = 0;
   while (people.length > 0) {
     const randomNumber = Math.floor(Math.random() * people.length);
     const lastIndex = people.length - 1;
@@ -33,23 +34,31 @@ function choose(data) {
         data.splice(randomNumber, 1);
       }
     }
+    count++;
+    if (count > 50) {
+      return choose(data);
+    }
   }
   return result;
 }
 
-function runSecretSanta() {
+async function runSecretSanta() {
   const result = choose(data);
 
   console.log(result); //comment this
-  // try{
-  //     await Promise.all(result.map(async (participant) => {
-  //         const response = await sendEmail({to: participant.email, giftTo: participant.giftTo});
-  //     }));
-  //     console.log('done');
-  // }
-  // catch (e) {
-  //     console.error(e.response.body.errors);
-  // }
+  try {
+    await Promise.all(
+      result.map(async (participant) => {
+        await sendEmail({
+          to: participant.email,
+          giftTo: participant.giftTo,
+        });
+      })
+    );
+    console.log('Emails sent successfully');
+  } catch (e) {
+    console.error(e.response.body);
+  }
   return;
 }
 
